@@ -40,19 +40,25 @@ module Ducks
         if arity == :any
           true
         else
-          method = potential_anatid.method( method_name )
+          method = potential_anatid.method method_name
           arities_match? arity, method.arity
         end
+      elsif potential_anatid.respond_to? method_name
+        # looser test because we can't test arity, but we don't generate
+        # any false positives as a consequence.
+        true
       end
     end
 
 
     def check_instance_method( potential_anatidae, method_name, arity )
+      # This is slightly problematic, because we generate false
+      # positives.
       if potential_anatidae.public_instance_methods.include? method_name
         if arity == :any
           true
         else
-          method = potential_anatid.instance_method( method_name )
+          method = potential_anatidae.instance_method method_name
           arities_match? arity, method.arity
         end
       end
