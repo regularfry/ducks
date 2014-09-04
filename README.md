@@ -9,7 +9,7 @@ First, define your protocol:
 require 'ducks'
 
 Write = Ducks.protocol do
-  defines :write, 1
+  defines :write, 1  # takes an instance method name and the arity
 end
 ```
 
