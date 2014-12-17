@@ -8,7 +8,8 @@ module Ducks
     def initialize( protocol, object )
       @protocol = protocol
       @object = object
-      super( "#{protocol.inspect} is not implemented by #{object.inspect}" )
+      missing = protocol.missing_methods( object )
+      super( "#{object.inspect} is missing #{missing.join(", ")} from #{protocol.inspect}" )
     end
   end
 

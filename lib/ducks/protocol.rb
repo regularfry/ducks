@@ -27,6 +27,12 @@ module Ducks
       }
     end
 
+    def missing_methods( potential_anatid )
+      @methods.reject{ |method_name, arity = :any, *_| 
+        check_method( potential_anatid, method_name, arity)
+      }.map{ |first, *second| first }
+    end
+
     private
 
     def arities_match?( protocol_arity, method_arity )

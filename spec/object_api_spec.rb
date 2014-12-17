@@ -16,6 +16,21 @@ describe "Object API" do
     it "with the protocol" do
       expect(implementor).to be_implements FooProtocol
     end
+
+    describe "the error message" do
+      let( :not_implementor ) { Object.new.tap{|impl| impl.extend Ducks::API} }
+      subject { 
+        e = nil
+        begin
+          not_implementor.implements! FooProtocol
+        rescue Ducks::ProtocolNotImplementedError => e
+        end
+        e
+      }
+      it "says what methods are missing" do
+        expect(subject.message).to match(/foo/)
+      end
+    end
   end
 
   describe "class api" do
