@@ -9,7 +9,7 @@ First, define your protocol:
 require 'ducks'
 
 Write = Ducks.protocol do
-  defines :write, 1
+  defines :write, 1  # takes an instance method name and the arity
 end
 ```
 
@@ -25,8 +25,8 @@ class AWriter
 end
 
 
-Write.implemented\_by? AWriter.new    # => true
-Write.implemented\_by? NotAWriter.new # => false
+Write.implemented_by? AWriter.new    # => true
+Write.implemented_by? NotAWriter.new # => false
 
 ```
 
@@ -34,17 +34,17 @@ There's a nicer API available:
 
 ```ruby
 
-a\_writer = AWriter.new
-a\_writer.extend Ducks::API
+a_writer = AWriter.new
+a_writer.extend Ducks::API
 
-not\_a\_writer = NotAWriter.new
-not\_a\_writer.extend Ducks::API
+not_a_writer = NotAWriter.new
+not_a_writer.extend Ducks::API
 
-a\_writer.implements? Write      # => true
-not\_a\_writer.implements? Write # => false
+a_writer.implements? Write      # => true
+not_a_writer.implements? Write # => false
 
-not\_a\_writer.implements! Write
-  # => raises Ducks::ProtocolNotImplementedError( Write, not\_a\_writer )
+not_a_writer.implements! Write
+  # => raises Ducks::ProtocolNotImplementedError( Write, not_a_writer )
 
 ```
 
@@ -72,7 +72,7 @@ Read = protocol do
 end
 
 File.open("/etc/passwd").implements? Read # => true
-Read.implemented\_by\_class? File # => true
+Read.implemented_by_class? File # => true
 ```
 
 Weaknesses
